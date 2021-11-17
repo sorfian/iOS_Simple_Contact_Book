@@ -64,22 +64,5 @@ void main() {
       expect(find.byType(AddNewContactPage), findsOneWidget);
       await tester.pump(const Duration(seconds: 3));
     });
-
-    testWidgets('Tap on the plus button, verify to add new contact',
-        (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.add));
-      await tester.pumpAndSettle();
-      await tester.pump(const Duration(seconds: 3));
-
-      await tester.tap(find.byKey(AddNewContactPage.saveButton),
-          warnIfMissed: false);
-      await tester.pumpAndSettle();
-
-      expect(find.byType(MyHomePage), findsOneWidget);
-      await tester.pump(const Duration(seconds: 3));
-    });
   });
 }

@@ -100,16 +100,37 @@ class _AddNewContactPageState extends State<AddNewContactPage> {
                   GestureDetector(
                     behavior: HitTestBehavior.deferToChild,
                     onTap: () async {
-                      await context.read<ContactCubit>().addContact(
-                            Contact(
-                              name: nameController.text,
-                              email: emailController.text,
-                              phone: phoneController.text,
-                              notes: notesController.text,
-                              label: [labelsController.text],
-                            ),
-                          );
-                      Get.back();
+                      if (nameController.text.isEmpty ||
+                          phoneController.text.isEmpty) {
+                        Get.snackbar(
+                          "",
+                          "",
+                          backgroundColor: Colors.pinkAccent,
+                          icon: const Icon(Icons.close_rounded,
+                              color: Colors.white),
+                          titleText: Text(
+                            'Add Contact Failed',
+                            style: GoogleFonts.lato(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          messageText: Text(
+                            'Please enter a name and phone number',
+                            style: GoogleFonts.lato(color: Colors.white),
+                          ),
+                        );
+                      } else {
+                        await context.read<ContactCubit>().addContact(
+                              Contact(
+                                name: nameController.text,
+                                email: emailController.text,
+                                phone: phoneController.text,
+                                notes: notesController.text,
+                                label: [labelsController.text],
+                              ),
+                            );
+                        Get.back();
+                      }
                     },
                     child: FractionallySizedBox(
                       widthFactor: 0.75,
